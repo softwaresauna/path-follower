@@ -55,14 +55,25 @@ const examples: Example[] = [
     },
 ];
 
-examples.forEach(example =>
-    it('Collects letters from ' + example.map, () => {
-        expect(followPath(example.map).letters).toBe(example.letters);
-    })
-);
+function clean(text: string): string {
+    return text
+        .split('            ')
+        .join('')
+        .split('\n')
+        .filter(s => s.length > 0)
+        .join('↲');
+}
 
-examples.forEach(example =>
-    it('Notes path while following ' + example.map, () => {
-        expect(followPath(example.map).path).toBe(example.path);
-    })
-);
+describe('While following path', () => {
+    examples.forEach(example =>
+        describe('on map: ' + clean(example.map), () => {
+            it('collects letters', () => {
+                expect(followPath(example.map).letters).toBe(example.letters);
+            });
+
+            it('notes path', () => {
+                expect(followPath(example.map).path).toBe(example.path);
+            });
+        })
+    );
+});
