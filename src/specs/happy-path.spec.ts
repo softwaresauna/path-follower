@@ -55,18 +55,9 @@ const examples: Example[] = [
     },
 ];
 
-function clean(text: string): string {
-    return text
-        .split('            ')
-        .join('')
-        .split('\n')
-        .filter(s => s.length > 0)
-        .join('↲');
-}
-
 describe('While following path', () => {
-    examples.forEach(example =>
-        describe('on map: ' + clean(example.map), () => {
+    examples.forEach((example, index) =>
+        describe('on map ' + (index + 1), () => {
             it('collects letters', () => {
                 expect(followPath(example.map).letters).toBe(example.letters);
             });
@@ -74,6 +65,6 @@ describe('While following path', () => {
             it('notes path', () => {
                 expect(followPath(example.map).path).toBe(example.path);
             });
-        })
+        }),
     );
 });
