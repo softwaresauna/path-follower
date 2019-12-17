@@ -1,16 +1,9 @@
+import { followPath } from '../path-follower';
+
 interface Example {
     map: string;
     letters: string;
     path: string;
-}
-
-interface CollectedLetters {
-    letters: string;
-    path: string;
-}
-
-function followPath(map: string): CollectedLetters {
-    throw Error('TODO!');
 }
 
 const examples: Example[] = [
