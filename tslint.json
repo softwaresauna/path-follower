@@ -15,7 +15,10 @@
         "object-literal-sort-keys": false,
         "arrow-parens": false,
         "trailing-comma": false,
-        "member-access": [true, "no-public"]
+        "member-access": [true, "no-public"],
+        "typedef": {
+            "options": "call-signature"
+        }
     },
     "rulesDirectory": []
 }
