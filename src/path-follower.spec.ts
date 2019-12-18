@@ -1,4 +1,4 @@
-import { followPath } from '../path-follower';
+import { followPath } from './path-follower';
 
 interface Example {
     map: string;
