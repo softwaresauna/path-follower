@@ -1,9 +1,7 @@
 import { AsciiMap, AsciiMapLocation } from './ascii-map/ascii-map';
 import { CollectedLetters, State } from './state/state';
 
-export function followPath(mapString: string): CollectedLetters {
-    const map: AsciiMap = AsciiMap.fromString(mapString);
-
+export function followPath(map: AsciiMap): CollectedLetters {
     const start: AsciiMapLocation = map.find('@');
 
     let state: State = existsOrThrow(State.from(map, start));

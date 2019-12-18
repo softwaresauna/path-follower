@@ -1,3 +1,4 @@
+import { AsciiMap } from './ascii-map/ascii-map';
 import { followPath } from './path-follower';
 
 interface Example {
@@ -52,11 +53,11 @@ describe('While following path', () => {
     examples.forEach((example, index) =>
         describe('on map ' + (index + 1), () => {
             it('collects letters', () => {
-                expect(followPath(example.map).letters).toBe(example.letters);
+                expect(followPath(AsciiMap.fromString(example.map)).letters).toBe(example.letters);
             });
 
             it('notes path', () => {
-                expect(followPath(example.map).path).toBe(example.path);
+                expect(followPath(AsciiMap.fromString(example.map)).path).toBe(example.path);
             });
         }),
     );
