@@ -18,7 +18,8 @@
         "member-access": [true, "no-public"],
         "typedef": {
             "options": "call-signature"
-        }
+        },
+        "max-classes-per-file": false
     },
     "rulesDirectory": []
 }
