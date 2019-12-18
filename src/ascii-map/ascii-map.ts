@@ -24,4 +24,8 @@ export class AsciiMap {
             y: foundLine.y
         };
     }
+
+    getCharacterAt(location: AsciiMapLocation): string | undefined {
+        throw Error('TODO!');
+    }
 }

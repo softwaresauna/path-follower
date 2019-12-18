@@ -1,28 +1,26 @@
-import { AsciiMap, AsciiMapLocation } from '../ascii-map/ascii-map';
-import { notEmpty, State } from './state';
+import { notEmpty } from './state';
 
-describe('finds initial state', () => {
+describe('notEmpty', () => {
+    const emptyCharacters = [undefined, ' '];
+    const nonEmptyCharacters = ['a', 'A', '.', 'x', '-', '|', '+'];
+
     const examples: Array<{
-        startingAt: AsciiMapLocation;
-        onMap: string;
-        leadsTo: AsciiMapLocation;
+        character: string | undefined;
+        isNotEmpty: boolean;
     }> = [
-        {
-            startingAt: { x: 1, y: 1 },
-            onMap: ['abc', 'def', 'ghi'].join('\n'),
-            leadsTo: { x: 1, y: 0 }
-        }
+        ...emptyCharacters.map(character => ({
+            character,
+            isNotEmpty: false
+        })),
+        ...nonEmptyCharacters.map(character => ({
+            character,
+            isNotEmpty: true
+        }))
     ];
 
     examples.forEach(example =>
         it(JSON.stringify(example), () => {
-            expect(
-                State.from(
-                    AsciiMap.fromString(example.onMap),
-                    example.startingAt
-                ).location
-            ).toEqual(example.leadsTo);
+            expect(notEmpty(example.character)).toBe(example.isNotEmpty);
         })
     );
 });
-
