@@ -25,7 +25,7 @@ export class State {
 
     constructor(
         private readonly map: AsciiMap,
-        readonly location: AsciiMapLocation
+        private readonly location: AsciiMapLocation
     ) {}
 
     goToNextLocation(): State {
