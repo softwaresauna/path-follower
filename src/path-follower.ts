@@ -11,7 +11,15 @@ export function followPath(mapString: string): CollectedLetters {
 
     const start: AsciiMapLocation = map.find('@');
 
-    const state: State = State.from(map, start);
+    const state: State = existsOrThrow(State.from(map, start));
 
     throw Error('TODO!');
+}
+
+export function existsOrThrow<T>(found: T | undefined): T {
+    if (found !== undefined) {
+        return found;
+    }
+
+    throw new Error('Not found!');
 }

@@ -6,17 +6,13 @@ import {
 import { Direction } from '../direction/direction';
 
 export class State {
-    static from(map: AsciiMap, startingAt: AsciiMapLocation): State {
-        return foundOrThrow(
-            Direction.getAll()
-                .map(direction => ({
-                    direction,
-                    location: direction.goToNextLocation(startingAt)
-                }))
-                .find(directionAndLocation =>
-                    notEmpty(map.getCharacterAt(directionAndLocation.location))
-                )
-        );
+    static from(
+        map: AsciiMap,
+        startingAt: AsciiMapLocation
+    ): State | undefined {
+        return Direction.getAll()
+            .map(direction => new State(direction.goToNextLocation(startingAt)))
+            .find(state => notEmpty(map.getCharacterAt(state.location)));
     }
 
     constructor(readonly location: AsciiMapLocation) {}
@@ -24,12 +20,4 @@ export class State {
 
 export function notEmpty(character: FoundCharacter): boolean {
     return character !== undefined && character !== ' ';
-}
-
-export function foundOrThrow<T>(found: T | undefined): T {
-    if (found !== undefined) {
-        return found;
-    }
-
-    throw new Error('Not found!');
 }
