@@ -97,11 +97,13 @@ describe('end character', () => {
         ['a', false],
         ['A', false],
         ['x', true],
-        ['X', false],
+        ['X', false]
     ];
 
-    examples.forEach(example => it(JSON.stringify(example), () => {
-        const [character, isEnd] = example;
-        expect(isEndCharacter(character)).toBe(isEnd);
-    }));
+    examples.forEach(example =>
+        it(JSON.stringify(example), () => {
+            const [character, isEnd] = example;
+            expect(isEndCharacter(character)).toBe(isEnd);
+        })
+    );
 });
