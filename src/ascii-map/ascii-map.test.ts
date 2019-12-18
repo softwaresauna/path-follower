@@ -1,3 +1,4 @@
+import { CompactLocation, unpackLocation } from '../test-utils';
 import { AsciiMap, AsciiMapLocation, FoundCharacter } from './ascii-map';
 
 describe('finds letter in map', () => {
@@ -65,13 +66,7 @@ describe('does not find letter in map', () => {
 describe('gets character at location', () => {
     const map = AsciiMap.fromString('abc\ndef\nghi');
 
-    type Loc = [number, number];
-
-    function toLocation(loc: Loc): AsciiMapLocation {
-        return { x: loc[0], y: loc[1] };
-    }
-
-    const examples: Array<[Loc, FoundCharacter]> = [
+    const examples: Array<[CompactLocation, FoundCharacter]> = [
         [[0, 0], 'a'],
         [[1, 0], 'b'],
         [[2, 0], 'c'],
@@ -91,7 +86,7 @@ describe('gets character at location', () => {
 
     examples.forEach(example =>
         it(JSON.stringify(example), () => {
-            const location: AsciiMapLocation = toLocation(example[0]);
+            const location: AsciiMapLocation = unpackLocation(example[0]);
             const character: FoundCharacter = example[1];
 
             expect(map.getCharacterAt(location)).toEqual(character);
