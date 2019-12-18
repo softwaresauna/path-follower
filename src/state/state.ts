@@ -1,4 +1,8 @@
-import { AsciiMap, AsciiMapLocation, FoundCharacter } from '../ascii-map/ascii-map';
+import {
+    AsciiMap,
+    AsciiMapLocation,
+    FoundCharacter
+} from '../ascii-map/ascii-map';
 import { Direction } from '../direction/direction';
 
 export class State {
@@ -23,5 +27,9 @@ export function notEmpty(character: FoundCharacter): boolean {
 }
 
 export function foundOrThrow<T>(found: T | undefined): T {
-    throw Error('TODO!');
+    if (found !== undefined) {
+        return found;
+    }
+
+    throw new Error('Not found!');
 }
