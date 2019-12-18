@@ -34,13 +34,26 @@ export class State {
     ) {}
 
     goToNextLocation(): State {
-        const { nextLocation, nextDirection } = computeNext(
-            this.location,
-            this.direction,
+        const character = validCharacter(
             this.map.getCharacterAt(this.location)
         );
 
-        return new State(this.map, nextLocation, nextDirection);
+        const neighbors: Map<Direction, FoundCharacter> = new Map(
+            Direction.getAll().map(direction => [
+                direction,
+                this.map.getCharacterAt(
+                    direction.goToNextLocation(this.location)
+                )
+            ])
+        );
+
+        const nextDirection = turn(character, this.direction, neighbors);
+
+        return new State(
+            this.map,
+            nextDirection.goToNextLocation(this.location),
+            nextDirection
+        );
     }
 
     collect(soFar: CollectedLetters): CollectedLetters {
@@ -82,11 +95,19 @@ export function collectPath(
     return notEmpty(character) ? oldPath + character : oldPath;
 }
 
-export function computeNext(
-    location: AsciiMapLocation,
+function validCharacter(character: FoundCharacter): FoundCharacter {
+    if (notEmpty(character)) {
+        return character;
+    }
+
+    throw new Error('Invalid map!');
+}
+
+export function turn(
+    character: FoundCharacter,
     direction: Direction,
-    characterAt: FoundCharacter
-): { nextLocation: AsciiMapLocation; nextDirection: Direction } {
+    neighbors: Map<Direction, FoundCharacter>
+): Direction {
     throw Error('TODO!');
 }
 
