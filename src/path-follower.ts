@@ -1,19 +1,23 @@
 import { AsciiMap, AsciiMapLocation } from './ascii-map/ascii-map';
-import { State } from './state/state';
-
-export interface CollectedLetters {
-    letters: string;
-    path: string;
-}
+import { CollectedLetters, State } from './state/state';
 
 export function followPath(mapString: string): CollectedLetters {
     const map: AsciiMap = AsciiMap.fromString(mapString);
 
     const start: AsciiMapLocation = map.find('@');
 
-    const state: State = existsOrThrow(State.from(map, start));
+    let state: State = existsOrThrow(State.from(map, start));
+    let collectedLetters: CollectedLetters = { letters: '', path: '' };
 
-    throw Error('TODO!');
+    while (true) {
+        collectedLetters = state.collect(collectedLetters);
+
+        if (state.isEndOfPath()) {
+            return collectedLetters;
+        }
+
+        state = state.goToNextLocation();
+    }
 }
 
 export function existsOrThrow<T>(found: T | undefined): T {

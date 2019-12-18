@@ -5,6 +5,11 @@ import {
 } from '../ascii-map/ascii-map';
 import { Direction } from '../direction/direction';
 
+export interface CollectedLetters {
+    letters: string;
+    path: string;
+}
+
 export class State {
     static from(
         map: AsciiMap,
@@ -16,6 +21,18 @@ export class State {
     }
 
     constructor(readonly location: AsciiMapLocation) {}
+
+    goToNextLocation(): State {
+        throw new Error('Method not implemented.');
+    }
+
+    collect(soFar: CollectedLetters): CollectedLetters {
+        throw new Error('Method not implemented.');
+    }
+
+    isEndOfPath(): boolean {
+        throw new Error('Method not implemented.');
+    }
 }
 
 export function notEmpty(character: FoundCharacter): boolean {
