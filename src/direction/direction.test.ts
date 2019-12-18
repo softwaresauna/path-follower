@@ -11,7 +11,7 @@ it('all directions are N, W, S, E', () => {
     ]);
 });
 
-describe('travelling', () => {
+describe('goes to next location', () => {
     type Example = [CompactLocation, Direction, CompactLocation];
 
     const examples: Example[] = [
