@@ -1,14 +1,5 @@
 import { AsciiMap, AsciiMapLocation } from '../ascii-map/ascii-map';
-
-class Direction {
-    static getAll(): Direction[] {
-        throw Error('TODO!');
-    }
-
-    goToNextLocation(location: AsciiMapLocation): AsciiMapLocation {
-        throw Error('TODO!');
-    }
-}
+import { Direction } from '../direction/direction';
 
 export class State {
     static from(map: AsciiMap, startingAt: AsciiMapLocation): State {
@@ -28,7 +19,7 @@ export class State {
 }
 
 export function notEmpty(character: string | undefined): boolean {
-    throw Error('TODO!');
+    return character !== undefined && character !== ' ';
 }
 
 export function foundOrThrow<T>(found: T | undefined): T {
