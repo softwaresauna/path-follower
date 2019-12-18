@@ -28,7 +28,7 @@ describe('finds letter in map', () => {
             ...ex
         })),
 
-        { inMap: 'abc\nabc\nabc', character: 'b', isFoundAt: { x: 1, y: 0 } },
+        { inMap: 'abc\nabc\nabc', character: 'b', isFoundAt: { x: 1, y: 0 } }
     ];
 
     examples.forEach(example =>
@@ -57,7 +57,7 @@ describe('does not find letter in map', () => {
                 AsciiMap.fromString(example.inMap).find(
                     example.missingCharacter
                 )
-            ).toThrow(`Character ${example.missingCharacter} not found!`);
+            ).toThrow();
         })
     );
 });
