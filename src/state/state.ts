@@ -41,7 +41,7 @@ export class State {
     }
 
     isEndOfPath(): boolean {
-        throw new Error('Method not implemented.');
+        return isEndCharacter(this.map.getCharacterAt(this.location));
     }
 }
 
@@ -61,7 +61,7 @@ export function collectLetter(
 }
 
 function isAToZ(character: string): boolean {
-    return !!character.toLowerCase().match(/[a-z]/i);
+    return !!character.match(/[A-Z]/);
 }
 
 export function collectPath(
@@ -69,4 +69,8 @@ export function collectPath(
     oldPath: string
 ): string {
     return notEmpty(character) ? oldPath + character : oldPath;
+}
+
+export function isEndCharacter(character: FoundCharacter): boolean {
+    return character === 'x';
 }
