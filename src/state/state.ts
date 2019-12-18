@@ -18,18 +18,29 @@ export class State {
         return Direction.getAll()
             .map(
                 direction =>
-                    new State(map, direction.goToNextLocation(startingAt))
+                    new State(
+                        map,
+                        direction.goToNextLocation(startingAt),
+                        direction
+                    )
             )
             .find(state => notEmpty(map.getCharacterAt(state.location)));
     }
 
     constructor(
         private readonly map: AsciiMap,
-        private readonly location: AsciiMapLocation
+        private readonly location: AsciiMapLocation,
+        private readonly direction: Direction
     ) {}
 
     goToNextLocation(): State {
-        throw new Error('Method not implemented.');
+        const { nextLocation, nextDirection } = computeNext(
+            this.location,
+            this.direction,
+            this.map.getCharacterAt(this.location)
+        );
+
+        return new State(this.map, nextLocation, nextDirection);
     }
 
     collect(soFar: CollectedLetters): CollectedLetters {
@@ -69,6 +80,14 @@ export function collectPath(
     oldPath: string
 ): string {
     return notEmpty(character) ? oldPath + character : oldPath;
+}
+
+export function computeNext(
+    location: AsciiMapLocation,
+    direction: Direction,
+    characterAt: FoundCharacter
+): { nextLocation: AsciiMapLocation; nextDirection: Direction } {
+    throw Error('TODO!');
 }
 
 export function isEndCharacter(character: FoundCharacter): boolean {
