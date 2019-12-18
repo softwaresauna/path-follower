@@ -3,12 +3,17 @@ import { AsciiMapLocation } from '../ascii-map/ascii-map';
 type Delta = -1 | 0 | 1;
 
 export class Direction {
+    static NORTH = new Direction(0, -1);
+    static SOUTH = new Direction(0, 1);
+    static WEST = new Direction(-1, 0);
+    static EAST = new Direction(1, 0);
+
     static getAll(): Direction[] {
         return [
-            new Direction(0, -1),
-            new Direction(0, 1),
-            new Direction(-1, 0),
-            new Direction(1, 0)
+            this.NORTH,
+            this.SOUTH,
+            this.WEST,
+            this.EAST
         ];
     }
 
