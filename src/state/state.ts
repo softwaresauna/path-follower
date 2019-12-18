@@ -55,5 +55,7 @@ export function collectLetter(character: FoundCharacter, oldLetters: string): st
 }
 
 export function collectPath(character: FoundCharacter, oldPath: string): string {
-    throw Error('TODO!');
+    return notEmpty(character)
+        ? oldPath + character
+        : oldPath;
 }
