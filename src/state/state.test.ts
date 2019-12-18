@@ -26,56 +26,62 @@ describe('notEmpty', () => {
     );
 });
 
-describe('collect path', () => {
+describe('collect', () => {
     type Example = [string, FoundCharacter, string];
 
-    const examples: Example[] = [
-        ['', undefined, ''],
-        ['a', undefined, 'a'],
-        [' ', undefined, ' '],
-        ['abc', undefined, 'abc'],
-        ['abc', '', 'abc'],
-        ['abc', ' ', 'abc'],
-        ['abc', 'd', 'abcd'],
-        ['abc', 'D', 'abcD'],
-        ['abc', '.', 'abc.'],
-        ['abc', '-', 'abc-'],
-        ['abc', '+', 'abc+']
-    ];
+    const unpack: (
+        example: Example
+    ) => {
+        old: string;
+        character: FoundCharacter;
+        expected: string;
+    } = example => ({
+        old: example[0],
+        character: example[1],
+        expected: example[2]
+    });
 
-    examples.forEach(example =>
-        it(JSON.stringify(example), () => {
-            const old: string = example[0];
-            const character: FoundCharacter = example[1];
-            const expected: string = example[2];
+    describe('path', () => {
+        const examples: Example[] = [
+            ['', undefined, ''],
+            ['a', undefined, 'a'],
+            [' ', undefined, ' '],
+            ['abc', undefined, 'abc'],
+            ['abc', '', 'abc'],
+            ['abc', ' ', 'abc'],
+            ['abc', 'd', 'abcd'],
+            ['abc', 'D', 'abcD'],
+            ['abc', '.', 'abc.'],
+            ['abc', '-', 'abc-'],
+            ['abc', '+', 'abc+']
+        ];
 
-            expect(collectPath(character, old)).toEqual(expected);
-        })
-    );
-});
+        examples.forEach(example =>
+            it(JSON.stringify(example), () => {
+                const { old, character, expected } = unpack(example);
+                expect(collectPath(character, old)).toEqual(expected);
+            })
+        );
+    });
 
-describe('collect letter', () => {
-    type Example = [string, FoundCharacter, string];
+    describe('letter', () => {
+        const examples: Example[] = [
+            ['abc', undefined, 'abc'],
+            ['abc', '', 'abc'],
+            ['abc', ' ', 'abc'],
+            ['abc', '.', 'abc'],
+            ['abc', '-', 'abc'],
+            ['abc', '+', 'abc'],
+            ['abc', '|', 'abc'],
+            ['abc', 'd', 'abcd'],
+            ['abc', 'D', 'abcD']
+        ];
 
-    const examples: Example[] = [
-        ['abc', undefined, 'abc'],
-        ['abc', '', 'abc'],
-        ['abc', ' ', 'abc'],
-        ['abc', '.', 'abc'],
-        ['abc', '-', 'abc'],
-        ['abc', '+', 'abc'],
-        ['abc', '|', 'abc'],
-        ['abc', 'd', 'abcd'],
-        ['abc', 'D', 'abcD']
-    ];
-
-    examples.forEach(example =>
-        it(JSON.stringify(example), () => {
-            const old: string = example[0];
-            const character: FoundCharacter = example[1];
-            const expected: string = example[2];
-
-            expect(collectLetter(character, old)).toEqual(expected);
-        })
-    );
+        examples.forEach(example =>
+            it(JSON.stringify(example), () => {
+                const { old, character, expected } = unpack(example);
+                expect(collectLetter(character, old)).toEqual(expected);
+            })
+        );
+    });
 });
