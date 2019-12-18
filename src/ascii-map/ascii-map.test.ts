@@ -1,4 +1,4 @@
-import { AsciiMap, AsciiMapLocation } from './ascii-map';
+import { AsciiMap, AsciiMapLocation, FoundCharacter } from './ascii-map';
 
 describe('finds letter in map', () => {
     const examples: Array<{
@@ -58,6 +58,43 @@ describe('does not find letter in map', () => {
                     example.missingCharacter
                 )
             ).toThrow();
+        })
+    );
+});
+
+describe('gets character at location', () => {
+    const map = AsciiMap.fromString('abc\ndef\nghi');
+
+    type Loc = [number, number];
+
+    function toLocation(loc: Loc): AsciiMapLocation {
+        return { x: loc[0], y: loc[1] };
+    }
+
+    const examples: Array<[Loc, FoundCharacter]> = [
+        [[0, 0], 'a'],
+        [[1, 0], 'b'],
+        [[2, 0], 'c'],
+        [[0, 1], 'd'],
+        [[1, 1], 'e'],
+        [[2, 1], 'f'],
+        [[0, 2], 'g'],
+        [[1, 2], 'h'],
+        [[2, 2], 'i'],
+        [[0, 3], undefined],
+        [[1, 3], undefined],
+        [[2, 3], undefined],
+        [[3, 3], undefined],
+        [[-1, 0], undefined],
+        [[0, -1], undefined]
+    ];
+
+    examples.forEach(example =>
+        it(JSON.stringify(example), () => {
+            const location: AsciiMapLocation = toLocation(example[0]);
+            const character: FoundCharacter = example[1];
+
+            expect(map.getCharacterAt(location)).toEqual(character);
         })
     );
 });

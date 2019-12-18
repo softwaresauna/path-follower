@@ -3,6 +3,8 @@ export interface AsciiMapLocation {
     y: number;
 }
 
+export type FoundCharacter = string | undefined;
+
 export class AsciiMap {
     static fromString(mapString: string): AsciiMap {
         return new AsciiMap(mapString.split('\n'));
@@ -25,7 +27,10 @@ export class AsciiMap {
         };
     }
 
-    getCharacterAt(location: AsciiMapLocation): string | undefined {
-        throw Error('TODO!');
+    getCharacterAt(location: AsciiMapLocation): FoundCharacter {
+        const line = this.lines[location.y];
+        return line !== undefined
+            ? line.charAt(location.x) || undefined
+            : undefined;
     }
 }

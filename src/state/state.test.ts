@@ -1,3 +1,4 @@
+import { FoundCharacter } from '../ascii-map/ascii-map';
 import { notEmpty } from './state';
 
 describe('notEmpty', () => {
@@ -5,7 +6,7 @@ describe('notEmpty', () => {
     const nonEmptyCharacters = ['a', 'A', '.', 'x', '-', '|', '+'];
 
     const examples: Array<{
-        character: string | undefined;
+        character: FoundCharacter;
         isNotEmpty: boolean;
     }> = [
         ...emptyCharacters.map(character => ({

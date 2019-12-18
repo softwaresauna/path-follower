@@ -1,4 +1,4 @@
-import { AsciiMap, AsciiMapLocation } from '../ascii-map/ascii-map';
+import { AsciiMap, AsciiMapLocation, FoundCharacter } from '../ascii-map/ascii-map';
 import { Direction } from '../direction/direction';
 
 export class State {
@@ -18,7 +18,7 @@ export class State {
     constructor(readonly location: AsciiMapLocation) {}
 }
 
-export function notEmpty(character: string | undefined): boolean {
+export function notEmpty(character: FoundCharacter): boolean {
     return character !== undefined && character !== ' ';
 }
 
