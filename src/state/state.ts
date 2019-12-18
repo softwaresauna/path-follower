@@ -1,7 +1,7 @@
 import {
     AsciiMap,
     AsciiMapLocation,
-    FoundCharacter,
+    FoundCharacter
 } from '../ascii-map/ascii-map';
 import { Direction } from '../direction/direction';
 
@@ -13,21 +13,20 @@ export interface CollectedLetters {
 export class State {
     static from(
         map: AsciiMap,
-        startingAt: AsciiMapLocation,
+        startingAt: AsciiMapLocation
     ): State | undefined {
         return Direction.getAll()
             .map(
                 direction =>
-                    new State(map, direction.goToNextLocation(startingAt)),
+                    new State(map, direction.goToNextLocation(startingAt))
             )
             .find(state => notEmpty(map.getCharacterAt(state.location)));
     }
 
     constructor(
         private readonly map: AsciiMap,
-        readonly location: AsciiMapLocation,
-    ) {
-    }
+        readonly location: AsciiMapLocation
+    ) {}
 
     goToNextLocation(): State {
         throw new Error('Method not implemented.');
@@ -36,8 +35,8 @@ export class State {
     collect(soFar: CollectedLetters): CollectedLetters {
         const character = this.map.getCharacterAt(this.location);
         return {
-            path: collectPath(character, soFar.path),
             letters: collectLetter(character, soFar.letters),
+            path: collectPath(character, soFar.path)
         };
     }
 
@@ -50,12 +49,24 @@ export function notEmpty(character: FoundCharacter): boolean {
     return character !== undefined && character !== ' ';
 }
 
-export function collectLetter(character: FoundCharacter, oldLetters: string): string {
-    throw Error('TODO!');
+export function collectLetter(
+    character: FoundCharacter,
+    oldLetters: string
+): string {
+    if (character === undefined) {
+        return oldLetters;
+    }
+
+    return isAToZ(character) ? oldLetters + character : oldLetters;
 }
 
-export function collectPath(character: FoundCharacter, oldPath: string): string {
-    return notEmpty(character)
-        ? oldPath + character
-        : oldPath;
+function isAToZ(character: string): boolean {
+    return !!character.toLowerCase().match(/[a-z]/i);
+}
+
+export function collectPath(
+    character: FoundCharacter,
+    oldPath: string
+): string {
+    return notEmpty(character) ? oldPath + character : oldPath;
 }

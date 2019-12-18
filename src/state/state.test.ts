@@ -1,5 +1,5 @@
 import { FoundCharacter } from '../ascii-map/ascii-map';
-import { collectPath, notEmpty } from './state';
+import { collectLetter, collectPath, notEmpty } from './state';
 
 describe('notEmpty', () => {
     const emptyCharacters = [undefined, ' '];
@@ -50,6 +50,32 @@ describe('collect path', () => {
             const expected: string = example[2];
 
             expect(collectPath(character, old)).toEqual(expected);
+        })
+    );
+});
+
+describe('collect letter', () => {
+    type Example = [string, FoundCharacter, string];
+
+    const examples: Example[] = [
+        ['abc', undefined, 'abc'],
+        ['abc', '', 'abc'],
+        ['abc', ' ', 'abc'],
+        ['abc', '.', 'abc'],
+        ['abc', '-', 'abc'],
+        ['abc', '+', 'abc'],
+        ['abc', '|', 'abc'],
+        ['abc', 'd', 'abcd'],
+        ['abc', 'D', 'abcD']
+    ];
+
+    examples.forEach(example =>
+        it(JSON.stringify(example), () => {
+            const old: string = example[0];
+            const character: FoundCharacter = example[1];
+            const expected: string = example[2];
+
+            expect(collectLetter(character, old)).toEqual(expected);
         })
     );
 });
