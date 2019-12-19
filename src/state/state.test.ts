@@ -27,9 +27,7 @@ describe('notEmpty', () => {
 });
 
 describe('collect letter', () => {
-    type Example = [string, FoundCharacter, string];
-
-    const examples: Example[] = [
+    const examples: Array<[string, FoundCharacter, string]> = [
         ['abc', undefined, 'abc'],
         ['abc', '', 'abc'],
         ['abc', ' ', 'abc'],
@@ -45,7 +43,7 @@ describe('collect letter', () => {
 
     examples.forEach(example =>
         it(JSON.stringify(example), () => {
-            const [ old, character, expected ] = example;
+            const [old, character, expected] = example;
             expect(collectLetter(character, old)).toEqual(expected);
         })
     );
