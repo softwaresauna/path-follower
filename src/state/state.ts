@@ -1,7 +1,7 @@
 import {
     AsciiMap,
-    AsciiMapLocation,
-    AsciiMapCharacter
+    AsciiMapCharacter,
+    AsciiMapLocation
 } from '../ascii-map/ascii-map';
 import { Direction } from '../direction/direction';
 import { existsOrThrow } from '../utils';
