@@ -48,7 +48,7 @@ export class State {
         }
 
         const nextDirection = shouldTurn(character)
-            ? existsOrThrow(this.getPossibleDirections()[0])
+            ? existsOrThrow(this.getNextDirection())
             : this.direction;
 
         return new State(
@@ -59,7 +59,7 @@ export class State {
         );
     }
 
-    private getPossibleDirections(): Direction[] {
+    private getNextDirection(): Direction | undefined {
         const allDirectionsWithCurrentFirst = [
             this.direction,
             ...Direction.getAll().filter(
@@ -67,7 +67,7 @@ export class State {
             )
         ];
 
-        return allDirectionsWithCurrentFirst.filter(
+        return allDirectionsWithCurrentFirst.find(
             direction =>
                 !direction.isOpposite(this.direction) &&
                 notEmpty(
