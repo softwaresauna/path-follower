@@ -38,7 +38,10 @@ export class State {
         const character = this.map.getCharacterAt(this.location);
 
         if (!notEmpty(character)) {
-            throw new Error('Invalid map at ' + JSON.stringify(this.location));
+            throw new Error(
+                'Invalid map at ' +
+                    JSON.stringify([this.location, this.direction])
+            );
         }
 
         const nextDirection = shouldTurn(character)
@@ -53,7 +56,14 @@ export class State {
     }
 
     private getPossibleDirections(): Direction[] {
-        return Direction.getAll()
+        const allDirectionsWithCurrentFirst = [
+            this.direction,
+            ...Direction.getAll().filter(
+                direction => direction !== this.direction
+            )
+        ];
+
+        return allDirectionsWithCurrentFirst
             .filter(direction => !direction.isOpposite(this.direction))
             .filter(direction =>
                 notEmpty(
