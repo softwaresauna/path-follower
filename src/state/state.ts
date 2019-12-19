@@ -35,9 +35,11 @@ export class State {
     ) {}
 
     goToNextLocation(): State {
-        const character = validCharacter(
-            this.map.getCharacterAt(this.location)
-        );
+        const character = this.map.getCharacterAt(this.location);
+
+        if (!notEmpty(character)) {
+            throw new Error("Invalid map at " + JSON.stringify(this.location));
+        }
 
         const shouldTurn = character === '+';
 
@@ -101,14 +103,6 @@ export function collectPath(
     oldPath: string
 ): string {
     return notEmpty(character) ? oldPath + character : oldPath;
-}
-
-function validCharacter(character: FoundCharacter): FoundCharacter {
-    if (notEmpty(character)) {
-        return character;
-    }
-
-    throw new Error('Invalid map!');
 }
 
 export function isEndCharacter(character: FoundCharacter): boolean {
