@@ -1,5 +1,5 @@
 import { FoundCharacter } from '../ascii-map/ascii-map';
-import { collectLetter, collectPath, isEndCharacter, notEmpty, shouldTurn } from './state';
+import { collectLetter, isEndCharacter, notEmpty, shouldTurn } from './state';
 
 describe('notEmpty', () => {
     const emptyCharacters = [undefined, ' '];
@@ -26,7 +26,7 @@ describe('notEmpty', () => {
     );
 });
 
-describe('collect', () => {
+describe('collect letter', () => {
     type Example = [string, FoundCharacter, string];
 
     const unpack: (
@@ -41,51 +41,26 @@ describe('collect', () => {
         expected: example[2]
     });
 
-    describe('path', () => {
-        const examples: Example[] = [
-            ['', undefined, ''],
-            ['a', undefined, 'a'],
-            [' ', undefined, ' '],
-            ['abc', undefined, 'abc'],
-            ['abc', '', 'abc'],
-            ['abc', ' ', 'abc'],
-            ['abc', 'd', 'abcd'],
-            ['abc', 'D', 'abcD'],
-            ['abc', '.', 'abc.'],
-            ['abc', '-', 'abc-'],
-            ['abc', '+', 'abc+']
-        ];
+    const examples: Example[] = [
+        ['abc', undefined, 'abc'],
+        ['abc', '', 'abc'],
+        ['abc', ' ', 'abc'],
+        ['abc', '.', 'abc'],
+        ['abc', '-', 'abc'],
+        ['abc', '+', 'abc'],
+        ['abc', '|', 'abc'],
+        ['abc', 'd', 'abc'],
+        ['abc', 'D', 'abcD'],
+        ['abc', 'x', 'abc'],
+        ['abc', 'X', 'abcX']
+    ];
 
-        examples.forEach(example =>
-            it(JSON.stringify(example), () => {
-                const { old, character, expected } = unpack(example);
-                expect(collectPath(character, old)).toEqual(expected);
-            })
-        );
-    });
-
-    describe('letter', () => {
-        const examples: Example[] = [
-            ['abc', undefined, 'abc'],
-            ['abc', '', 'abc'],
-            ['abc', ' ', 'abc'],
-            ['abc', '.', 'abc'],
-            ['abc', '-', 'abc'],
-            ['abc', '+', 'abc'],
-            ['abc', '|', 'abc'],
-            ['abc', 'd', 'abc'],
-            ['abc', 'D', 'abcD'],
-            ['abc', 'x', 'abc'],
-            ['abc', 'X', 'abcX']
-        ];
-
-        examples.forEach(example =>
-            it(JSON.stringify(example), () => {
-                const { old, character, expected } = unpack(example);
-                expect(collectLetter(character, old)).toEqual(expected);
-            })
-        );
-    });
+    examples.forEach(example =>
+        it(JSON.stringify(example), () => {
+            const { old, character, expected } = unpack(example);
+            expect(collectLetter(character, old)).toEqual(expected);
+        })
+    );
 });
 
 describe('end character', () => {
@@ -121,8 +96,10 @@ describe('should turn', () => {
             .map(letter => [letter, true] as [FoundCharacter, boolean])
     ];
 
-    examples.forEach(example => it(JSON.stringify(example), () => {
-        const [character, expected] = example;
-        expect(shouldTurn(character)).toBe(expected);
-    }));
+    examples.forEach(example =>
+        it(JSON.stringify(example), () => {
+            const [character, expected] = example;
+            expect(shouldTurn(character)).toBe(expected);
+        })
+    );
 });

@@ -84,7 +84,7 @@ export class State {
             letters: this.locations.wasVisited(this.location)
                 ? soFar.letters
                 : collectLetter(character, soFar.letters),
-            path: collectPath(character, soFar.path)
+            path: soFar.path + character
         };
     }
 
@@ -114,13 +114,6 @@ export function collectLetter(
 
 function isAToZ(character: string): boolean {
     return !!character.match(/[A-Z]/);
-}
-
-export function collectPath(
-    character: FoundCharacter,
-    oldPath: string
-): string {
-    return notEmpty(character) ? oldPath + character : oldPath;
 }
 
 export function isEndCharacter(character: FoundCharacter): boolean {
