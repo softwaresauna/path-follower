@@ -5,6 +5,7 @@ import {
 } from '../ascii-map/ascii-map';
 import { Direction } from '../direction/direction';
 import { existsOrThrow } from '../path-follower';
+import { Locations } from './locations';
 
 export interface CollectedLetters {
     readonly letters: string;
@@ -21,6 +22,7 @@ export class State {
                 direction =>
                     new State(
                         map,
+                        new Locations(),
                         direction.goToNextLocation(startingAt),
                         direction
                     )
@@ -28,8 +30,9 @@ export class State {
             .find(state => notEmpty(map.getCharacterAt(state.location)));
     }
 
-    constructor(
+    private constructor(
         private readonly map: AsciiMap,
+        private readonly locations: Locations,
         private readonly location: AsciiMapLocation,
         private readonly direction: Direction
     ) {}
@@ -50,6 +53,7 @@ export class State {
 
         return new State(
             this.map,
+            this.locations,
             nextDirection.goToNextLocation(this.location),
             nextDirection
         );
@@ -77,7 +81,9 @@ export class State {
     collect(soFar: CollectedLetters): CollectedLetters {
         const character = this.map.getCharacterAt(this.location);
         return {
-            letters: collectLetter(character, soFar.letters),
+            letters: this.locations.wasVisited(this.location)
+                ? soFar.letters
+                : collectLetter(character, soFar.letters),
             path: collectPath(character, soFar.path)
         };
     }
