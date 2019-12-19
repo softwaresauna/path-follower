@@ -107,11 +107,11 @@ export function collectLetter(
     character: FoundCharacter,
     oldLetters: string
 ): string {
-    return isAToZ(character || '') ? oldLetters + character : oldLetters;
+    return isAToZ(character) ? oldLetters + character : oldLetters;
 }
 
-function isAToZ(character: string): boolean {
-    return !!character.match(/[A-Z]/);
+function isAToZ(character: FoundCharacter): boolean {
+    return character !== undefined && !!character.match(/[A-Z]/);
 }
 
 export function isEndCharacter(character: FoundCharacter): boolean {
