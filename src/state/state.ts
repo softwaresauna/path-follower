@@ -17,12 +17,14 @@ export class State {
         map: AsciiMap,
         startingAt: AsciiMapLocation
     ): State | undefined {
+        const visited = new Locations();
+
         return Direction.getAll()
             .map(
                 direction =>
                     new State(
                         map,
-                        new Locations(),
+                        visited,
                         direction.goToNextLocation(startingAt),
                         direction
                     )
