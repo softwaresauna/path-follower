@@ -4,6 +4,7 @@ import {
     FoundCharacter
 } from '../ascii-map/ascii-map';
 import { Direction } from '../direction/direction';
+import { existsOrThrow } from '../path-follower';
 
 export interface CollectedLetters {
     readonly letters: string;
@@ -38,21 +39,29 @@ export class State {
             this.map.getCharacterAt(this.location)
         );
 
-        const neighbors: Array<[
-            Direction,
-            FoundCharacter
-        ]> = Direction.getAll().map(direction => [
-            direction,
-            this.map.getCharacterAt(direction.goToNextLocation(this.location))
-        ]);
+        const shouldTurn = character === '+';
 
-        const nextDirection = turn(character, this.direction, neighbors);
+        const nextDirection = shouldTurn
+            ? existsOrThrow(this.getPossibleDirections()[0])
+            : this.direction;
 
         return new State(
             this.map,
             nextDirection.goToNextLocation(this.location),
             nextDirection
         );
+    }
+
+    private getPossibleDirections(): Direction[] {
+        return Direction.getAll()
+            .filter(direction => !direction.isOpposite(this.direction))
+            .filter(direction =>
+                notEmpty(
+                    this.map.getCharacterAt(
+                        direction.goToNextLocation(this.location)
+                    )
+                )
+            );
     }
 
     collect(soFar: CollectedLetters): CollectedLetters {
@@ -100,14 +109,6 @@ function validCharacter(character: FoundCharacter): FoundCharacter {
     }
 
     throw new Error('Invalid map!');
-}
-
-export function turn(
-    character: FoundCharacter,
-    direction: Direction,
-    neighbors: Array<[Direction, FoundCharacter]>
-): Direction {
-    throw Error('TODO!');
 }
 
 export function isEndCharacter(character: FoundCharacter): boolean {
