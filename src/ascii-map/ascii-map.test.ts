@@ -1,5 +1,5 @@
 import { CompactLocation, unpackLocation } from '../test-utils';
-import { AsciiMap, AsciiMapLocation, AsciiMapCharacter } from './ascii-map';
+import { AsciiMap, AsciiMapCharacter, AsciiMapLocation } from './ascii-map';
 
 describe('finds letter in map', () => {
     const examples: Array<{

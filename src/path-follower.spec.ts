@@ -17,7 +17,7 @@ const examples: Example[] = [
                 +---+
             `,
         letters: 'ACB',
-        path: '@---A---+|C|+---+|+-B-x',
+        path: '@---A---+|C|+---+|+-B-x'
     },
     {
         map: `
@@ -30,7 +30,7 @@ const examples: Example[] = [
               +---D--+
             `,
         letters: 'ABCD',
-        path: '@|A+---B--+|+----C|-||+---D--+|x',
+        path: '@|A+---B--+|+----C|-||+---D--+|x'
     },
     {
         map: `
@@ -45,20 +45,24 @@ const examples: Example[] = [
                +--F--+
             `,
         letters: 'BEEFCAKE',
-        path: '@---+B||E--+|E|+--F--+|C|||A--|-----K|||+--E--Ex',
-    },
+        path: '@---+B||E--+|E|+--F--+|C|||A--|-----K|||+--E--Ex'
+    }
 ];
 
 describe('While following path', () => {
     examples.forEach((example, index) =>
         describe('on map ' + (index + 1), () => {
             it('collects letters', () => {
-                expect(followPath(AsciiMap.fromString(example.map)).letters).toBe(example.letters);
+                expect(
+                    followPath(AsciiMap.fromString(example.map)).letters
+                ).toBe(example.letters);
             });
 
             it('notes path', () => {
-                expect(followPath(AsciiMap.fromString(example.map)).path).toBe(example.path);
+                expect(followPath(AsciiMap.fromString(example.map)).path).toBe(
+                    example.path
+                );
             });
-        }),
+        })
     );
 });
