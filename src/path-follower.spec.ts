@@ -16,7 +16,7 @@ const examples: Example[] = [
                 |   |
                 +---+
             `,
-        letters: 'ABC',
+        letters: 'ACB',
         path: '@---A---+|C|+---+|+-B-x',
     },
     {
