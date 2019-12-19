@@ -50,9 +50,7 @@ describe('collect letter', () => {
 });
 
 describe('end character', () => {
-    type Example = [FoundCharacter, boolean];
-
-    const examples: Example[] = [
+    const examples: Array<[FoundCharacter, boolean]> = [
         [undefined, false],
         [' ', false],
         ['a', false],
