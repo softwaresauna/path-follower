@@ -1,16 +1,16 @@
-import { FoundCharacter } from '../ascii-map/ascii-map';
+import { AsciiMapCharacter } from '../ascii-map/ascii-map';
 import { collectLetter, isEndCharacter, isOnPath, shouldTurn } from './state';
 
 describe('character is on path', () => {
     const offPathCharacters = [undefined, ' '];
     const pathCharacters = ['a', 'A', '.', 'x', '-', '|', '+'];
 
-    const examples: Array<[FoundCharacter, boolean]> = [
+    const examples: Array<[AsciiMapCharacter, boolean]> = [
         ...offPathCharacters.map(
-            character => [character, false] as [FoundCharacter, boolean]
+            character => [character, false] as [AsciiMapCharacter, boolean]
         ),
         ...pathCharacters.map(
-            character => [character, true] as [FoundCharacter, boolean]
+            character => [character, true] as [AsciiMapCharacter, boolean]
         )
     ];
 
@@ -23,7 +23,7 @@ describe('character is on path', () => {
 });
 
 describe('collect letter', () => {
-    const examples: Array<[string, FoundCharacter, string]> = [
+    const examples: Array<[string, AsciiMapCharacter, string]> = [
         ['abc', undefined, 'abc'],
         ['abc', '', 'abc'],
         ['abc', ' ', 'abc'],
@@ -46,7 +46,7 @@ describe('collect letter', () => {
 });
 
 describe('end character', () => {
-    const examples: Array<[FoundCharacter, boolean]> = [
+    const examples: Array<[AsciiMapCharacter, boolean]> = [
         [undefined, false],
         [' ', false],
         ['a', false],
@@ -64,7 +64,7 @@ describe('end character', () => {
 });
 
 describe('should turn', () => {
-    const examples: Array<[FoundCharacter, boolean]> = [
+    const examples: Array<[AsciiMapCharacter, boolean]> = [
         [undefined, false],
         [' ', false],
         ['-', false],
@@ -73,7 +73,7 @@ describe('should turn', () => {
         ['+', true],
         ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
             .split('')
-            .map(letter => [letter, true] as [FoundCharacter, boolean])
+            .map(letter => [letter, true] as [AsciiMapCharacter, boolean])
     ];
 
     examples.forEach(example =>

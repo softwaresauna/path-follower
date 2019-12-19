@@ -1,7 +1,7 @@
 import {
     AsciiMap,
     AsciiMapLocation,
-    FoundCharacter
+    AsciiMapCharacter
 } from '../ascii-map/ascii-map';
 import { Direction } from '../direction/direction';
 import { existsOrThrow } from '../utils';
@@ -95,25 +95,25 @@ export class State {
     }
 }
 
-export function isOnPath(character: FoundCharacter): boolean {
+export function isOnPath(character: AsciiMapCharacter): boolean {
     return character !== undefined && character !== ' ';
 }
 
-export function shouldTurn(character: FoundCharacter): boolean {
+export function shouldTurn(character: AsciiMapCharacter): boolean {
     return character !== undefined && !!character.match(/[A-Z+]/);
 }
 
 export function collectLetter(
-    character: FoundCharacter,
+    character: AsciiMapCharacter,
     oldLetters: string
 ): string {
     return isAToZ(character) ? oldLetters + character : oldLetters;
 }
 
-function isAToZ(character: FoundCharacter): boolean {
+function isAToZ(character: AsciiMapCharacter): boolean {
     return character !== undefined && !!character.match(/[A-Z]/);
 }
 
-export function isEndCharacter(character: FoundCharacter): boolean {
+export function isEndCharacter(character: AsciiMapCharacter): boolean {
     return character === 'x';
 }
