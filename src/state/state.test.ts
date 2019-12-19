@@ -1,5 +1,12 @@
 import { FoundCharacter } from '../ascii-map/ascii-map';
-import { collectLetter, collectPath, isEndCharacter, notEmpty } from './state';
+import { Direction } from '../direction/direction';
+import {
+    collectLetter,
+    collectPath,
+    isEndCharacter,
+    notEmpty,
+    turn
+} from './state';
 
 describe('notEmpty', () => {
     const emptyCharacters = [undefined, ' '];
@@ -106,4 +113,84 @@ describe('end character', () => {
             expect(isEndCharacter(character)).toBe(isEnd);
         })
     );
+});
+
+describe('turn', () => {
+    const anyNeighbours = [];
+
+    describe('throws if nowhere to turn', () => {
+        const examples: Array<[
+            FoundCharacter,
+            Direction,
+            Array<[Direction, FoundCharacter]>
+        ]> = [
+            [
+                '-',
+                Direction.EAST,
+                [
+                    [Direction.NORTH, '|'],
+                    [Direction.EAST, ' '],
+                    [Direction.SOUTH, ' '],
+                    [Direction.WEST, '-']
+                ]
+            ],
+            [
+                '+',
+                Direction.NORTH,
+                [
+                    [Direction.NORTH, ' '],
+                    [Direction.EAST, ' '],
+                    [Direction.SOUTH, '|'],
+                    [Direction.WEST, ' ']
+                ]
+            ]
+        ];
+
+        examples.forEach(example =>
+            it(JSON.stringify(example), () => {
+                const [character, direction, neighbours] = example;
+                expect(() => turn(character, direction, neighbours)).toThrow();
+            })
+        );
+    });
+
+    describe('returns next direction', () => {
+        const examples: Array<[
+            FoundCharacter,
+            Direction,
+            Array<[Direction, FoundCharacter]>,
+            Direction
+        ]> = [
+            ['-', Direction.EAST, anyNeighbours, Direction.EAST],
+            ['a', Direction.NORTH, anyNeighbours, Direction.NORTH],
+            ['|', Direction.WEST, anyNeighbours, Direction.WEST],
+            [' ', Direction.SOUTH, anyNeighbours, Direction.SOUTH],
+
+            [
+                '+',
+                Direction.NORTH,
+                [
+                    [Direction.NORTH, ' '],
+                    [Direction.EAST, ' '],
+                    [Direction.SOUTH, ' '],
+                    [Direction.WEST, ' ']
+                ],
+                undefined
+            ]
+        ];
+
+        examples.forEach(example =>
+            it(JSON.stringify(example), () => {
+                const [
+                    character,
+                    direction,
+                    neighbours,
+                    nextDirection
+                ] = example;
+                expect(turn(character, direction, neighbours)).toEqual(
+                    nextDirection
+                );
+            })
+        );
+    });
 });

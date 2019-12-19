@@ -38,14 +38,13 @@ export class State {
             this.map.getCharacterAt(this.location)
         );
 
-        const neighbors: Map<Direction, FoundCharacter> = new Map(
-            Direction.getAll().map(direction => [
-                direction,
-                this.map.getCharacterAt(
-                    direction.goToNextLocation(this.location)
-                )
-            ])
-        );
+        const neighbors: Array<[
+            Direction,
+            FoundCharacter
+        ]> = Direction.getAll().map(direction => [
+            direction,
+            this.map.getCharacterAt(direction.goToNextLocation(this.location))
+        ]);
 
         const nextDirection = turn(character, this.direction, neighbors);
 
@@ -106,7 +105,7 @@ function validCharacter(character: FoundCharacter): FoundCharacter {
 export function turn(
     character: FoundCharacter,
     direction: Direction,
-    neighbors: Map<Direction, FoundCharacter>
+    neighbors: Array<[Direction, FoundCharacter]>
 ): Direction {
     throw Error('TODO!');
 }
