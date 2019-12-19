@@ -1,5 +1,5 @@
 import { FoundCharacter } from '../ascii-map/ascii-map';
-import { collectLetter, collectPath, isEndCharacter, notEmpty } from './state';
+import { collectLetter, collectPath, isEndCharacter, notEmpty, shouldTurn } from './state';
 
 describe('notEmpty', () => {
     const emptyCharacters = [undefined, ' '];
@@ -106,4 +106,23 @@ describe('end character', () => {
             expect(isEndCharacter(character)).toBe(isEnd);
         })
     );
+});
+
+describe('should turn', () => {
+    const examples: Array<[FoundCharacter, boolean]> = [
+        [undefined, false],
+        [' ', false],
+        ['-', false],
+        ['@', false],
+        ['|', false],
+        ['+', true],
+        ...'ABCDEFGHIJKLMNOPQRSTVWXYZ'
+            .split('')
+            .map(letter => [letter, true] as [FoundCharacter, boolean])
+    ];
+
+    examples.forEach(example => it(JSON.stringify(example), () => {
+        const [character, expected] = example;
+        expect(shouldTurn(character)).toBe(expected);
+    }));
 });

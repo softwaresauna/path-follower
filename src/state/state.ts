@@ -38,12 +38,10 @@ export class State {
         const character = this.map.getCharacterAt(this.location);
 
         if (!notEmpty(character)) {
-            throw new Error("Invalid map at " + JSON.stringify(this.location));
+            throw new Error('Invalid map at ' + JSON.stringify(this.location));
         }
 
-        const shouldTurn = character === '+';
-
-        const nextDirection = shouldTurn
+        const nextDirection = shouldTurn(character)
             ? existsOrThrow(this.getPossibleDirections()[0])
             : this.direction;
 
@@ -81,6 +79,10 @@ export class State {
 
 export function notEmpty(character: FoundCharacter): boolean {
     return character !== undefined && character !== ' ';
+}
+
+export function shouldTurn(character: FoundCharacter): boolean {
+    return character !== undefined && !!character.match(/[A-Z+]/);
 }
 
 export function collectLetter(
