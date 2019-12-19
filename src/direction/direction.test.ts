@@ -40,3 +40,37 @@ describe('goes to next location', () => {
         })
     );
 });
+
+describe('opposite directions', () => {
+    type Example = [Direction, Direction, boolean];
+
+    const examples: Example[] = [
+        [Direction.EAST, Direction.WEST, true],
+        [Direction.WEST, Direction.EAST, true],
+        [Direction.NORTH, Direction.SOUTH, true],
+        [Direction.SOUTH, Direction.NORTH, true],
+
+        [Direction.EAST, Direction.EAST, false],
+        [Direction.EAST, Direction.NORTH, false],
+        [Direction.EAST, Direction.SOUTH, false],
+
+        [Direction.WEST, Direction.WEST, false],
+        [Direction.WEST, Direction.NORTH, false],
+        [Direction.WEST, Direction.SOUTH, false],
+
+        [Direction.NORTH, Direction.NORTH, false],
+        [Direction.NORTH, Direction.EAST, false],
+        [Direction.NORTH, Direction.WEST, false],
+
+        [Direction.SOUTH, Direction.SOUTH, false],
+        [Direction.SOUTH, Direction.EAST, false],
+        [Direction.SOUTH, Direction.WEST, false]
+    ];
+
+    examples.forEach(example =>
+        it(JSON.stringify(example), () => {
+            const [direction, otherDirection, isOpposite] = example;
+            expect(direction.isOpposite(otherDirection)).toBe(isOpposite);
+        })
+    );
+});
