@@ -4,7 +4,7 @@ import {
     FoundCharacter
 } from '../ascii-map/ascii-map';
 import { Direction } from '../direction/direction';
-import { existsOrThrow } from '../path-follower';
+import { existsOrThrow } from '../utils';
 import { Locations } from './locations';
 
 export interface CollectedLetters {

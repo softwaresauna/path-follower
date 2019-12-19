@@ -1,5 +1,6 @@
 import { AsciiMap, AsciiMapLocation } from './ascii-map/ascii-map';
 import { CollectedLetters, State } from './state/state';
+import { existsOrThrow } from './utils';
 
 export function followPath(map: AsciiMap): CollectedLetters {
     const start: AsciiMapLocation = map.find('@');
@@ -16,12 +17,4 @@ export function followPath(map: AsciiMap): CollectedLetters {
 
         state = state.goToNextLocation();
     }
-}
-
-export function existsOrThrow<T>(found: T | undefined): T {
-    if (found !== undefined) {
-        return found;
-    }
-
-    throw new Error('Not found!');
 }

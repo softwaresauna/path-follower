@@ -1,4 +1,4 @@
-import { existsOrThrow } from './path-follower';
+import { existsOrThrow } from './utils';
 
 describe('returns existing or throw', () => {
     it('returns existing', () => {
