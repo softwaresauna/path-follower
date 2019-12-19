@@ -29,18 +29,6 @@ describe('notEmpty', () => {
 describe('collect letter', () => {
     type Example = [string, FoundCharacter, string];
 
-    const unpack: (
-        example: Example
-    ) => {
-        old: string;
-        character: FoundCharacter;
-        expected: string;
-    } = example => ({
-        old: example[0],
-        character: example[1],
-        expected: example[2]
-    });
-
     const examples: Example[] = [
         ['abc', undefined, 'abc'],
         ['abc', '', 'abc'],
@@ -57,7 +45,7 @@ describe('collect letter', () => {
 
     examples.forEach(example =>
         it(JSON.stringify(example), () => {
-            const { old, character, expected } = unpack(example);
+            const [ old, character, expected ] = example;
             expect(collectLetter(character, old)).toEqual(expected);
         })
     );
