@@ -5,23 +5,19 @@ describe('character is on path', () => {
     const offPathCharacters = [undefined, ' '];
     const pathCharacters = ['a', 'A', '.', 'x', '-', '|', '+'];
 
-    const examples: Array<{
-        character: FoundCharacter;
-        onPath: boolean;
-    }> = [
-        ...offPathCharacters.map(character => ({
-            character,
-            onPath: false
-        })),
-        ...pathCharacters.map(character => ({
-            character,
-            onPath: true
-        }))
+    const examples: Array<[FoundCharacter, boolean]> = [
+        ...offPathCharacters.map(
+            character => [character, false] as [FoundCharacter, boolean]
+        ),
+        ...pathCharacters.map(
+            character => [character, true] as [FoundCharacter, boolean]
+        )
     ];
 
     examples.forEach(example =>
         it(JSON.stringify(example), () => {
-            expect(isOnPath(example.character)).toBe(example.onPath);
+            const [character, onPath] = example;
+            expect(isOnPath(character)).toBe(onPath);
         })
     );
 });
