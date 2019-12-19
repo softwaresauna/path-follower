@@ -71,7 +71,7 @@ describe('should turn', () => {
         ['@', false],
         ['|', false],
         ['+', true],
-        ...'ABCDEFGHIJKLMNOPQRSTVWXYZ'
+        ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
             .split('')
             .map(letter => [letter, true] as [FoundCharacter, boolean])
     ];
