@@ -27,7 +27,7 @@ export class State {
                         direction
                     )
             )
-            .find(state => notEmpty(map.getCharacterAt(state.location)));
+            .find(state => isOnPath(map.getCharacterAt(state.location)));
     }
 
     private constructor(
@@ -40,7 +40,7 @@ export class State {
     goToNextLocation(): State {
         const character = this.map.getCharacterAt(this.location);
 
-        if (!notEmpty(character)) {
+        if (!isOnPath(character)) {
             throw new Error(
                 'Invalid map at ' +
                     JSON.stringify([this.location, this.direction])
@@ -70,7 +70,7 @@ export class State {
         return allDirectionsWithCurrentFirst.find(
             direction =>
                 !direction.isOpposite(this.direction) &&
-                notEmpty(
+                isOnPath(
                     this.map.getCharacterAt(
                         direction.goToNextLocation(this.location)
                     )
@@ -93,7 +93,7 @@ export class State {
     }
 }
 
-export function notEmpty(character: FoundCharacter): boolean {
+export function isOnPath(character: FoundCharacter): boolean {
     return character !== undefined && character !== ' ';
 }
 

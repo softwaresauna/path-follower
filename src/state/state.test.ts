@@ -1,27 +1,27 @@
 import { FoundCharacter } from '../ascii-map/ascii-map';
-import { collectLetter, isEndCharacter, notEmpty, shouldTurn } from './state';
+import { collectLetter, isEndCharacter, isOnPath, shouldTurn } from './state';
 
-describe('notEmpty', () => {
-    const emptyCharacters = [undefined, ' '];
-    const nonEmptyCharacters = ['a', 'A', '.', 'x', '-', '|', '+'];
+describe('character is on path', () => {
+    const offPathCharacters = [undefined, ' '];
+    const pathCharacters = ['a', 'A', '.', 'x', '-', '|', '+'];
 
     const examples: Array<{
         character: FoundCharacter;
-        isNotEmpty: boolean;
+        onPath: boolean;
     }> = [
-        ...emptyCharacters.map(character => ({
+        ...offPathCharacters.map(character => ({
             character,
-            isNotEmpty: false
+            onPath: false
         })),
-        ...nonEmptyCharacters.map(character => ({
+        ...pathCharacters.map(character => ({
             character,
-            isNotEmpty: true
+            onPath: true
         }))
     ];
 
     examples.forEach(example =>
         it(JSON.stringify(example), () => {
-            expect(notEmpty(example.character)).toBe(example.isNotEmpty);
+            expect(isOnPath(example.character)).toBe(example.onPath);
         })
     );
 });
