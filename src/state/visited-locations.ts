@@ -1,6 +1,6 @@
 import { AsciiMapLocation } from '../ascii-map/ascii-map';
 
-export class Locations {
+export class VisitedLocations {
     private readonly locations: AsciiMapLocation[] = [];
 
     wasVisited(location: AsciiMapLocation): boolean {

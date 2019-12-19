@@ -1,5 +1,5 @@
 import { CompactLocation, unpackLocation } from '../test-utils';
-import { Locations } from './locations';
+import { VisitedLocations } from './visited-locations';
 
 describe('keeps track of visited locations', () => {
     const examples: Array<[CompactLocation[], boolean[]]> = [
@@ -35,7 +35,7 @@ describe('keeps track of visited locations', () => {
         it(JSON.stringify(example), () => {
             const [compactLocations, wereVisited] = example;
 
-            const locations = new Locations();
+            const locations = new VisitedLocations();
 
             expect(
                 compactLocations
