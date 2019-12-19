@@ -105,11 +105,7 @@ export function collectLetter(
     character: FoundCharacter,
     oldLetters: string
 ): string {
-    if (character === undefined) {
-        return oldLetters;
-    }
-
-    return isAToZ(character) ? oldLetters + character : oldLetters;
+    return isAToZ(character || '') ? oldLetters + character : oldLetters;
 }
 
 function isAToZ(character: string): boolean {
