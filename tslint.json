@@ -19,7 +19,8 @@
         "typedef": {
             "options": "call-signature"
         },
-        "max-classes-per-file": false
+        "max-classes-per-file": false,
+        "member-ordering": false
     },
     "rulesDirectory": []
 }
