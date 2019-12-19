@@ -67,15 +67,15 @@ export class State {
             )
         ];
 
-        return allDirectionsWithCurrentFirst
-            .filter(direction => !direction.isOpposite(this.direction))
-            .filter(direction =>
+        return allDirectionsWithCurrentFirst.filter(
+            direction =>
+                !direction.isOpposite(this.direction) &&
                 notEmpty(
                     this.map.getCharacterAt(
                         direction.goToNextLocation(this.location)
                     )
                 )
-            );
+        );
     }
 
     collect(soFar: CollectedLetters): CollectedLetters {
