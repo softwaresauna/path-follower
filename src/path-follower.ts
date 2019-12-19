@@ -5,7 +5,7 @@ export function followPath(map: AsciiMap): CollectedLetters {
     const start: AsciiMapLocation = map.find('@');
 
     let state: State = existsOrThrow(State.from(map, start));
-    let collectedLetters: CollectedLetters = { letters: '', path: '' };
+    let collectedLetters: CollectedLetters = { letters: '', path: '@' };
 
     while (true) {
         collectedLetters = state.collect(collectedLetters);
